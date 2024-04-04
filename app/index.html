@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Nagare - DevOps Intern Portfolio</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li::before {
+            content: "•";
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        .project b {
+            color: #007bff;
+        }
+
+        .contact {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .contact a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Om Nagare</h1>
+        <p>DevOps Enthusiast</p>
+    </header>
+    <div class="container">
+        <h2>About Me</h2>
+        <p>I am a passionate DevOps enthusiast currently looking for an internship to further enhance my skills and knowledge in the field. I have a strong foundation in various DevOps tools and technologies, including Docker, Kubernetes, Jenkins, and AWS.</p>
+
+        <h2>Skills</h2>
+        <ul>
+            <li>Containerization (Docker)</li>
+            <li>Container Orchestration (Kubernetes)</li>
+            <li>Continuous Integration/Continuous Deployment (Jenkins)</li>
+            <li>Cloud Computing (AWS)</li>
+            <li>Infrastructure as Code (Terraform)</li>
+        </ul>
+
+        <h2>Projects</h2>
+        <div class="project">
+            <b>Cost Optimization — AWS</b><br>
+            Implemented Lambda function that fetches all EBS snapshots owned by the same account ('self') and also retrieves a list of active EC2 instances (running and stopped). For each snapshot, it checks if the associated volume (if exists) is not associated with any active instance. If it finds a stale snapshot, it deletes it, effectively optimizing storage costs.
+        </div>
+        <div class="project">
+            <b>End CICD Implementation— Jenkins</b><br>
+            Implemented an end-to-end CI/CD pipeline for java-based application using Jenkins declarative pipelines which includes various stages such as Build, Unit testing, Static code analysis, SAST, DAST, Creation of Docker Images, Deployment on Kubernetes platform using Argo CD.
+        </div>
+        <div class="project">
+            <b>Deployed Two Tire Application</b><br>
+            Dockerized a Flask and MySQL application, setting up Kubernetes clusters locally and on AWS EKS for fault tolerance. Automated cluster setup with Kubeadm and eksctl, deployed with HELM, achieving 10,000 user scalability and 60% downtime reduction using AWS Managed Services
+        </div>
+
+        <h2 class="contact">Contact Me</h2>
+        <p class="contact">If you would like to get in touch with me regarding internship opportunities or collaboration, please feel free to <a href="mailto:omnagare07@gmail.com">contact me</a>.</p>
+    </div>
+
+   
+</body>
+</html>
+
