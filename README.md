@@ -37,7 +37,7 @@ To set up the project locally, follow these steps:
   it requires `2cpu` and 20GB (storage) volume .
 - SSH into the EC2 instance using `MobaXterm` or `putty`. I'm using the terminal because it's faster than these tools.
 
-![EC2 Setup](image's/Creating EC2 Instance (VM).png)
+![Creating EC2 Instance (VM)](https://github.com/omnagare9975/k8s-argo-cd-assignment/assets/118531541/18d22209-2080-4e48-83c2-2a149aca3cbb)
 
 
 
