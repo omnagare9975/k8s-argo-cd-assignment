@@ -81,15 +81,61 @@ Deploy the Application Using Argo CD:-
 
 ## Solution
 - To access the Argo CD UI on my browser, I edited the services. I changed the service to `NodePort` (which allows clients to send requests to the IP address of a node on one or more nodePort values specified by the service). Then, I allowed traffic to the server by defining inbound rules in the security group for `HTTP` and `HTTPS`.
-- After that, I used port forwarding because I am using an AWS EC2 VM. I forwarded port `:44444` on the server with my VM IPv4 address. This allowed me to successfully access the Argo CD UI. I used the UI, but I also provided the CLI YAML file.
+- After that, I used port forwarding because I am using an AWS EC2 VM. I forwarded port `:4444` on the server with my VM IPv4 address. This allowed me to successfully access the Argo CD UI. I used the UI, but I also provided the CLI YAML file.
 
 Here is the configured setup -
 ![Sync and fetch Repo](https://github.com/omnagare9975/k8s-argo-cd-assignment/assets/118531541/fccb63cf-95e6-4237-86d4-97cc191ff95a)
 
-- i have configured the GitHUB repo and we have `2 replicas` here in `Deployment.yml` 
+- i have configured the GitHUB repo with Argo CD 
+-  We have `2 replicas` here in `Deployment.yml` 
+- For testing purposes, I scaled up the replicas to 3 in our VM, which caused it to go out of sync. However, I was able to synchronize the full application.
+- I discovered that the application is fully configured with our GitHub repo.
 
-    
-     
+### Step 3: Implementing a Canary Release with Argo Rollouts
+
+- For the rollout strategy, we defined a canary release in the rollout definition.
+- In our `Deployment.yml`, we defined it as follows:
+
+```
+strategy:
+  canary:
+    steps:
+      - setWeight: 10
+        pause: {}
+      - setWeight: 50
+        pause:
+          duration: 30s
+```
+
+- We specified a canary release strategy where we gradually increased the weight of the version (`:latest` of our Docker image) in two steps: first to 10% and then to 50%, with a pause of 30 seconds between each step.
+
+- To trigger a rollout, we updated our image from `:latest` to `:v1` by rebuilding the Docker image.
+- After building the image and all necessary steps, we defined it in our manifests `deployment.yml`.
+
+![Changes in repo Rollout](https://github.com/omnagare9975/k8s-argo-cd-assignment/assets/118531541/b928e534-ddfd-431d-b9c1-1f102613d13d)
+![Version of app v1 and latest](https://github.com/omnagare9975/k8s-argo-cd-assignment/assets/118531541/c7c5646b-2f81-4b07-b42a-62c51da44092)
+
+- We have successfully defined the canary release and changed the application version from `:latest` to `:v1` for the rollout.
+- Using Argo Rollouts CLI, we monitored the changes of the rollout. The command `kubectl argo rollouts get rollout my-web-app -n default` provided detailed information about the rollout progress, including the current status and the number of replicas.
+
+- We observed that the canary release steps were progressing as expected. The new version of the application was being gradually rolled out according to the defined canary release strategy, and our canary release successfully completed.
+
+## Challenge
+- While rolling out, my virtual machine went down due to some issue.
+- This caused my synchronization to fail for our application that we recently changed from `:latest` to `:v1`.
+
+## Solution
+- I re-SSHed to my instance and tried the rollout again, this time it started working. I increased the terminal time to '30min' because it was going down from time to time.
+
+## Clean Up
+- Now we need to clean up the resources.
+- First, we delete the Argo CD namespace using `kubectl delete namespace argocd`.
+- Second, for the Argo Rollout object, we delete our object `my-web-app` using `kubectl delete rollout my-web-app`.
+- Verify using `kubectl get all`.
+- Then, we need to delete the Docker image that we built using `docker rmi web-portfolio-intern`.
+- Finally, we stop the Minikube using `minikube stop`.
+- Since I'm using the EC2 instance on AWS, I terminate it (VM).
+
 
 
 
